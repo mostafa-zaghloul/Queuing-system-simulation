@@ -31,7 +31,13 @@ namespace Simulation_task
             //{
             //    Inter_arrival_time.results_table[i, 0] = i + 1;
             //}
-
+            results_table.highest_prio = results_table.lowest = results_table.random = false;
+            if (radioButton1.Checked)
+                results_table.highest_prio = true;
+            if (radioButton2.Checked)
+                results_table.lowest = true;
+            if (radioButton3.Checked)
+                results_table.random = true;
             numOfRows = Convert.ToInt32(textBox5.Text);
                 st = new service_time_dist();
             st.BringToFront();

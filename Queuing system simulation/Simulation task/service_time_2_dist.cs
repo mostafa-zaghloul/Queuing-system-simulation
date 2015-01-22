@@ -10,23 +10,18 @@ using System.Windows.Forms;
 
 namespace Simulation_task
 {
-    public partial class service_time_dist : Form
+    public partial class service_time_2_dist : Form
     {
+        public service_time_2_dist()
+        {
+            InitializeComponent();
+        }
         public struct mynum
         {
             public int left, right;
 
         };
         public static List<int> service_time_final;
-        public service_time_dist()
-        {
-            InitializeComponent();
-        }
-        service_time_2_dist inter1;
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -41,6 +36,7 @@ namespace Simulation_task
             List<mynum> range = new List<mynum>();
             int num = 0;
             mynum y = new mynum();
+            Inter_arrival_time inter1;
 
             for (int i = 0; i < this.dataGridView1.RowCount - 1; i++)
             {
@@ -64,7 +60,7 @@ namespace Simulation_task
                     }
                 }
             }
-            inter1 = new service_time_2_dist();
+            inter1 = new Inter_arrival_time();
             inter1.BringToFront();
             this.Close();
             inter1.Show();

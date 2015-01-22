@@ -12,13 +12,15 @@ namespace Simulation_task
 {
     public partial class results_table : Form
     {
-        List<int> arrivalTime,time_service_begin,time_service_end,delay,server_time,server_index;
-
+        public static bool highest_prio, random, lowest;
+        List<int> arrivalTime,time_service_begin,time_service_end,server_time,server_index;
+        public static List<int> delay;
         List<bool> server_state;
         List<int[]> Results_table;
+        charts chr;
         public results_table()
         {
-            
+            chr = new charts();
             InitializeComponent();
             arrivalTime = new List<int>();
             arrivalTime.Add(0);
@@ -50,7 +52,12 @@ namespace Simulation_task
                 {
                     time_service_begin.Add(arrivalTime[i]);
                     server_index.Add(num);
-                    time_service_end.Add(time_service_begin[i] + service_time_dist.service_time_final[i]);
+                    if(num==0)
+
+                        time_service_end.Add(time_service_begin[i] + service_time_dist.service_time_final[i]);
+                    else
+
+                        time_service_end.Add(time_service_begin[i] + service_time_2_dist.service_time_final[i]);
                     server_time[num] = time_service_end[i];
                     delay.Add(0);
                 }
@@ -67,7 +74,6 @@ namespace Simulation_task
                             num = j ;
                         }
                     }
-                    time_service_begin.Add(MIN);
                     time_service_end.Add(time_service_begin[i] + service_time_dist.service_time_final[i]);
                     server_time[num] = time_service_end[i];
                     delay.Add(time_service_begin[i]-arrivalTime[i]);
@@ -95,10 +101,22 @@ namespace Simulation_task
                 this.dataGridView1.Rows.Add();
                 for (int j = 0; j < Form1.numOfCols;j++ ) 
                     this.dataGridView1.Rows[i].Cells[j].Value= Results_table[i][j];
-              
+                chr.print_1(i,delay[i]);
+                int num=0; 
+                for(int j=0; j< delay.Count; j++)
+                {
+                    if(delay[j]==delay[i])
+                        num++;
+                }
+                chr.print_2(delay[i], num);
+                if (server_state[i] == true)
+                    chr.print_3(i, 1);
+                else
+                    chr.print_3(i, 0);
             }
         }
-        private int choose_server(int index) {
+        private int lowest_utilization(int index)
+        {
             for (int j = 0; j < server_time.Count; j++)
             {
                 if (server_time[j] <= arrivalTime[index])
@@ -106,15 +124,78 @@ namespace Simulation_task
                     return j;
                 }
             }
-           /* for (int i = 0; i < server_state.Count; i++)
+            int MIN = 100;
+            server_index.Add(0);
+            int num = -1;
+            for (int j = 0; j < server_time.Count; j++)
             {
-                if (server_state[i] == false)
+                if (server_time[j] < MIN)
                 {
-                    server_state[i] = true;
-                    return i;
+                    MIN = server_time[j];
+                    server_index[index] = j;
+                    num = j;
                 }
-            }*/
-            return -1;
+            }
+            time_service_begin.Add(MIN);
+            return num;
+        }
+        private int highest_priority(int index)
+        {
+            for (int j = 0; j < server_time.Count; j++)
+            {
+                if (server_time[j] <= arrivalTime[index])
+                {
+                    return j;
+                }
+            }
+            int MIN = 100;
+            server_index.Add(0);
+            int num = -1;
+            for (int j = 0; j < server_time.Count; j++)
+            {
+                if (server_time[j] < MIN)
+                {
+                    MIN = server_time[j];
+                    server_index[index] = j;
+                    num = j;
+                }
+            }
+            time_service_begin.Add(MIN);
+            return num;
+        }
+        private int random_server(int index)
+        {
+            for (int j = 0; j < server_time.Count; j++)
+            {
+                if (server_time[j] <= arrivalTime[index])
+                {
+                    return j;
+                }
+            }
+            int MIN = 100;
+            server_index.Add(0);
+            int num = -1;
+            for (int j = 0; j < server_time.Count; j++)
+            {
+                if (server_time[j] < MIN)
+                {
+                    MIN = server_time[j];
+                    server_index[index] = j;
+                    num = j;
+                }
+            }
+            time_service_begin.Add(MIN);
+            return num;
+        }
+        private int choose_server(int index) {
+
+            if (lowest == true)
+                return lowest_utilization(index);
+            else if (highest_prio == true)
+                return highest_priority(index);
+            else
+                return random_server(index);
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

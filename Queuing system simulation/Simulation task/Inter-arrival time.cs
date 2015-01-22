@@ -69,19 +69,19 @@ namespace Simulation_task
             }
             Random rand = new Random(System.DateTime.Now.Millisecond);
             inter_arrival_final = new List<int>();
-            for (int i = 0; i < this.dataGridView1.RowCount - 1; i++)
+            inter_arrival_final.Add(0);
+            for (int i = 0; i < Form1.numOfRows; i++)
             {
                 int X = rand.Next(0, 99);
                 
                 for (int j = 0; j < this.dataGridView1.RowCount - 1; j++)
                 {
                     if(X>=range[j].left && X<=range[j].right){
-                        inter_arrival_final.Add(Convert.ToInt32(this.dataGridView1.Rows[i].Cells[0].Value));
+                        inter_arrival_final.Add(Convert.ToInt32(this.dataGridView1.Rows[j].Cells[0].Value));
                         break;
                     }
                 }
             }
-            inter_arrival_final.Add(0);
             res = new results_table();
             res.BringToFront();
             this.Close();

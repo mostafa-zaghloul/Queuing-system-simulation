@@ -37,6 +37,7 @@
             this.ServiceDuration = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TimeServiceEnds = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalDelay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -106,11 +107,21 @@
             this.TotalDelay.Name = "TotalDelay";
             this.TotalDelay.ReadOnly = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(872, 430);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(93, 54);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Simulation analyssi";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // results_table
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(872, 533);
+            this.ClientSize = new System.Drawing.Size(986, 522);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "results_table";
             this.Text = "results_table";
@@ -121,7 +132,6 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Customer_num;
         private System.Windows.Forms.DataGridViewTextBoxColumn InterArrivalTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn Arrival_time;
@@ -130,5 +140,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ServiceDuration;
         private System.Windows.Forms.DataGridViewTextBoxColumn TimeServiceEnds;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalDelay;
+        private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.DataGridView dataGridView1;
     }
 }
